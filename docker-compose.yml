@@ -1,0 +1,12 @@
+services: 
+  ubuntu:
+    build:
+      context: .
+      dockerfile: ubuntu.dockerfile
+    container_name: ubuntu-backup
+    command: bash
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/src
+
