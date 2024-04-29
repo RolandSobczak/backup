@@ -1,0 +1,26 @@
+- hosts: localhost
+  become: true
+  become_user: root
+  vars:
+    conf_file: "../.ssh/config"
+    source: "../.ssh/github"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/github"
+  tags:
+    - zsh
+  tasks:
+    - include_tasks: shared/ssh-keys.yml
+
+    - when: ansible_distribution == 'Ubuntu'
+      include_tasks: ubuntu/utils.yml
+    - when: ansible_distribution == 'Fedora'
+      include_tasks: fedora/utils.yml
+
+    - when: ansible_distribution == 'Ubuntu'
+      include_tasks: ubuntu/zsh.yml
+    - when: ansible_distribution == 'Fedora'
+      include_tasks: fedora/zsh.yml
+
+    - include_tasks: shared/nvim.yml
+    - include_tasks: shared/dotfiles.yml
+
+

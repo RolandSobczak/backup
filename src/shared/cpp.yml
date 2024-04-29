@@ -1,0 +1,23 @@
+- name: Install compiler
+  when: ansible_distribution == "Ubuntu"
+    apt:
+      name:
+        - build-essential
+        - cmake
+        - clang
+        - gcc
+        - g++
+        - ninja
+  when: ansible_distribution == "Fedora"
+    dnf:
+      name:
+        - build-essential
+        - cmake
+        - clang
+        - gcc
+        - g++
+        - ninja
+
+
+
+

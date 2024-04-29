@@ -1,0 +1,13 @@
+- name: update cache
+  apt: update_cache=yes
+- name: Install zsh
+  apt: name=zsh
+- name: oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+- name: Clone powerlevel10k
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    clone: yes
+- name: Change shell
+  shell: chsh -s `which zsh

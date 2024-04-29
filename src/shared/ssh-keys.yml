@@ -1,0 +1,27 @@
+- name: Check if SSH key exists
+  become_user: root
+  file:
+    dest: "{{ dest_key | dirname }}"
+    mode: 0700
+    state: directory
+- name: Copy SSH key github key
+  copy:
+    src: "{{ source }}"
+    dest: "{{ dest_key }}"
+    mode: -0700
+  when: source is defined
+- name: Copy conf file
+  copy:
+    src: "{{ conf_file }}"
+    dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
+  when: source is defined
+- name: Copy known_hosts file
+  copy:
+    src: ../.ssh/known_hosts
+    dest: "{{ lookup('env', 'HOME') }}/.ssh/known_hosts"
+  when: source is defined
+- name: Set permissions
+  file:
+    path: "{{ dest_key }}"
+    mode: 0600
+  when: source is defined

@@ -1,0 +1,22 @@
+- name: cli tooling
+  apt:
+    name: 
+      - curl
+      - git
+      - ssh
+      - neofetch
+      - htop
+      - tmux
+      - zsh
+      - ripgrep
+      - snapd
+      - jq
+      - bat
+      - tldr
+      - eza
+      - virtualbox
+      - fzf
+      - postgresql
+      - stow
+      - zoxide
+

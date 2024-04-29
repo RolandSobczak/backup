@@ -1,0 +1,5 @@
+sudo apt-add-repository -y ppa:ansible/ansible
+sudo apt-get update -y
+sudo apt-get -y curl git software-properties-common ansible
+
+# sudo ansible-pull -U https://github.com/...

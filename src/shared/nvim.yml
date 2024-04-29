@@ -1,0 +1,18 @@
+- name: Ensure /root/Downloads directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/Downloads"
+    state: directory
+- name: fetch nvim tarball
+  get_url:
+    url: https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
+    dest: "{{ lookup('env', 'HOME') }}/Downloads/nvim-linux64.tar.gz"
+- name: extract nvim tarball
+  ansible.builtin.unarchive:
+    src: "{{ lookup('env', 'HOME') }}/Downloads/nvim-linux64.tar.gz"
+    dest: "{{ lookup('env', 'HOME') }}/Downloads"
+    remote_src: yes
+- name: move nvim to /usr/local/bin
+  ansible.builtin.command:
+    cmd: mv "{{ lookup('env', 'HOME') }}/Downloads/nvim-linux64/bin/nvim" /usr/local/bin/nvim
+
+

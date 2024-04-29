@@ -1,0 +1,41 @@
+- name: clone alacrity repo
+  git:
+    repo: https://github.com/alacritty/alacritty.git
+    dest: "{{ lookup('env', 'HOME') }}/alacritty"
+    clone: yes
+- name: bootstrap rust
+  curl: "--proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+- name: install dependencies - Ubuntu
+  when: ansible_distribution == 'Ubuntu'
+  apt:
+    name: 
+      - cmake
+      - pkg-config
+      - libfreetype6-dev 
+      - libfontconfig1-dev 
+      - libxcb-xfixes0-dev 
+      - libxkbcommon-dev 
+      - python3
+- name: Install dependencies - Fedora
+  when: ansible_distribution == 'Fedora'
+  dnf:
+    name: 
+      - cmake
+      - pkg-config
+      - freetype-devel
+      - fontconfig-devel
+      - libxcb-devel
+      - libxkbcommon-devel
+      - python3
+      - g++
+- name: build alacritty
+  shell: "cd {{ lookup('env', 'HOME') }}/alacritty && cargo build --release"
+- name: install alacritty
+  shell: "cp {{ lookup('env', 'HOME') }}/alacritty/release/alacritty /usr/local/bin"
+- name: logo install
+  shell: "sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg"
+- name: desktop entry
+  shell: "sudo desktop-file-install extra/linux/Alacritty.desktop"
+- name: desktop refresh
+  shell: "sudo update-desktop-database"
+

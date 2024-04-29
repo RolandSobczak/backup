@@ -1,0 +1,30 @@
+- name: Remove current dotfiles directory
+  become: true
+  file:
+    path: "~/dotfiles"
+    state: absent
+- name: Ensure the dotfiles directory exists
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/dotfiles"
+    state: directory
+    mode: '0755'
+- name: clone dotfiles repo
+  git:
+   repo: git@github.com:RolandSobczak/dotfiles.git
+   dest: "{{ lookup('env', 'HOME') }}/dotfiles"
+   clone: yes
+   update: yes
+- name: Remove zshrc
+  become: true
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
+    state: absent
+    force: true
+- name: Remove profile
+  become: true
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.profile"
+    state: absent
+    force: true
+- name: stow dotfiles
+  shell: "cd {{ lookup('env', 'HOME') }}/dotfiles && stow ."

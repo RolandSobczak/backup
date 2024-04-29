@@ -1,0 +1,21 @@
+- name: cli tooling
+  dnf:
+    name: 
+      - curl
+      - git
+      - ssh
+      - neofetch
+      - htop
+      - tmux
+      - zsh
+      - ripgrep
+      - snapd
+      - jq
+      - bat
+      - tldr
+      - eza
+      - fzf
+      - kubectl
+      - postgresql
+      - stow
+      - zoxide

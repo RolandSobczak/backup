@@ -1,0 +1,8 @@
+- name: update cache
+  apt: update_cache=yes
+- name: Install zsh
+  apt: name=zsh
+- name: oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+- name: Change shell
+  shell: chsh -s `which zsh`
