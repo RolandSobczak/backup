@@ -6,13 +6,14 @@ pattern="(ID|id)=(ubuntu|fedora)"
 
 if [[ $distro =~ $pattern && "${BASH_REMATCH[2]}" == "fedora" ]]; 
 then
-    echo "fedora"
+  sudo dnf update
+  sudo dnf install -y pipx
 elif [[ $distro =~ $pattern && "${BASH_REMATCH[2]}" == "ubuntu" ]]; then
   sudo apt update
   sudo apt install -y pipx
 else
-  sudo dnf update
-  sudo dnf install -y pipx
+  echo "OS version doesn't supported. Avaible support for: 'fedora', 'ubuntu'"
+  exit -1
 fi
 
 export PATH="$PATH:${HOME}/.local/bin"
