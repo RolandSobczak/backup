@@ -1,9 +1,22 @@
 #!/bin/bash
 
-apt update
+distro=$(cat /etc/os-release)
 
-apt install -y pipx
+pattern="(ID|id)=(ubuntu|fedora)"
 
+if [[ $distro =~ $pattern && "${BASH_REMATCH[2]}" == "fedora" ]]; 
+then
+    echo "fedora"
+elif [[ $distro =~ $pattern && "${BASH_REMATCH[2]}" == "ubuntu" ]]; then
+  sudo apt update
+  sudo apt install -y pipx
+else
+  sudo dnf update
+  sudo dnf install -y pipx
+fi
+
+export PATH="$PATH:${HOME}/.local/bin"
 pipx install --include-deps ansible
+echo 'export PATH="$PATH:${HOME}/.local/bin"' >> ${HOME}/.bashrc
 
-echo 'export PATH="$PATH:/root/.local/bin"' >> /root/.bashrc
+ansible-playbook --ask-vault-pass src/desktop.yml
