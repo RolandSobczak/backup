@@ -14,6 +14,8 @@
       include_tasks: ubuntu/utils.yml
     - when: ansible_distribution == 'Fedora'
       include_tasks: fedora/utils.yml
+    - when: ansible_distribution == 'Arch'
+      include_tasks: arch/utils.yml
 
     - when: ansible_distribution == 'Ubuntu'
       include_tasks: ubuntu/zsh.yml
@@ -22,5 +24,3 @@
 
     - include_tasks: shared/nvim.yml
     - include_tasks: shared/dotfiles.yml
-
-

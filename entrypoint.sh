@@ -21,3 +21,4 @@ pipx install --include-deps ansible
 echo 'export PATH="$PATH:${HOME}/.local/bin"' >> ${HOME}/.bashrc
 
 ansible-playbook --ask-vault-pass src/desktop.yml
+
