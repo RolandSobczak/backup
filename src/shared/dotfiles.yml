@@ -7,13 +7,24 @@
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/dotfiles"
     state: directory
-    mode: '0755'
+    mode: "0755"
+# - name: add github to known-hosts
+#   ansible.builtin.known_hosts:
+#     name: github.com
+#     key: github.com
 - name: clone dotfiles repo
-  git:
-   repo: git@github.com:RolandSobczak/dotfiles.git
-   dest: "{{ lookup('env', 'HOME') }}/dotfiles"
-   clone: yes
-   update: yes
+  ansible.builtin.git:
+    repo: git@github.com:RolandSobczak/dotfiles.git
+    key_file: "{{ lookup('env', 'HOME') }}/.ssh/github"
+    dest: "{{ lookup('env', 'HOME') }}/dotfiles"
+    clone: yes
+    update: yes
+- name: clone powerlevel10k
+  ansible.builtin.git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    clone: yes
+    update: yes
 - name: Remove zshrc
   become: true
   file:

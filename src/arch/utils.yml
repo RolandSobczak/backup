@@ -3,7 +3,6 @@
     name:
       - curl
       - git
-      - ssh
       - neofetch
       - htop
       - tmux
@@ -20,3 +19,4 @@
       - stow
       - zoxide
       - tmux
+      - zsh
