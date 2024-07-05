@@ -1,5 +1,5 @@
 - name: cli tooling
-  pacman:
+  community.general.pacman:
     name:
       - curl
       - git
@@ -19,3 +19,4 @@
       - postgresql
       - stow
       - zoxide
+      - tmux
