@@ -1,6 +1,6 @@
-- hosts: localhost
+- hosts: myhosts
   become: true
-  become_user: root
+  become_user: roland
   vars:
     conf_file: "../.ssh/config"
     source: "../.ssh/github"
@@ -10,17 +10,17 @@
   tasks:
     - include_tasks: shared/ssh-keys.yml
 
-    - when: ansible_distribution == 'Ubuntu'
-      include_tasks: ubuntu/utils.yml
-    - when: ansible_distribution == 'Fedora'
-      include_tasks: fedora/utils.yml
-    - when: ansible_distribution == 'Arch'
+    # - when: ansible_distribution == 'Ubuntu'
+    #   include_tasks: ubuntu/utils.yml
+    # - when: ansible_distribution == 'Fedora'
+    #   include_tasks: fedora/utils.yml
+    - when: ansible_distribution == 'Archlinux'
       include_tasks: arch/utils.yml
 
-    - when: ansible_distribution == 'Ubuntu'
-      include_tasks: ubuntu/zsh.yml
-    - when: ansible_distribution == 'Fedora'
-      include_tasks: fedora/zsh.yml
-
-    - include_tasks: shared/nvim.yml
+    # - when: ansible_distribution == 'Ubuntu'
+    #   include_tasks: ubuntu/zsh.yml
+    # - when: ansible_distribution == 'Fedora'
+    #   include_tasks: fedora/zsh.yml
+    #
+    # - include_tasks: shared/nvim.yml
     - include_tasks: shared/dotfiles.yml
