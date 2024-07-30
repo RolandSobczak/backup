@@ -1,4 +1,5 @@
 - name: cli tooling
+  become: true
   apt:
     name: 
       - curl
@@ -13,7 +14,6 @@
       - jq
       - bat
       - tldr
-      - eza
       - virtualbox
       - fzf
       - postgresql

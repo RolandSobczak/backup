@@ -1,7 +1,7 @@
-- name: update cache
-  apt: update_cache=yes
-- name: Install zsh
-  apt: name=zsh
+#- name: update cache
+#  apt: update_cache=yes
+#- name: Install zsh
+#  apt: name=zsh
 - name: oh-my-zsh
   when: ansible_env.ZSH is not defined
   shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -10,5 +10,5 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/themes/powerlevel10k"
     clone: yes
-- name: Change shell
-  shell: chsh -s /bin/zsh
+    #- name: Change shell
+    # shell: chsh -s /bin/zsh
